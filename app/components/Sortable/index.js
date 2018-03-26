@@ -56,15 +56,6 @@ class SortableComponent extends Component {
     items: PropTypes.array,
   };
 
-  // state = {
-  //   items: [
-  //     { text: 'Box 1' },
-  //     { text: 'Box 2 has a medium text' },
-  //     { text: 'Box 3 has a very very long text' },
-  //     { text: 'Box 4' },
-  //   ],
-  // };
-
   state = {
     items: this.props.items,
   };
@@ -114,18 +105,27 @@ class SortableComponent extends Component {
     });
   };
   render() {
-    const { items } = this.state;
+    let content;
+    // console.log(this.state.items);
+    if (this.state.items.length > 0) {
+      const { items } = this.state;
+      content = (
+        <div>
+          <SortableList
+            items={items}
+            oneUp={(index) => this.oneUp(index)}
+            oneDown={(index) => this.oneDown(index)}
+            removeItem={(index) => this.removeItem(index)}
+            onSortEnd={this.onSortEnd}
+            useDragHandle
+          />
+        </div>
+      );
+    } else {
+      content = <p> This list has no items </p>;
+    }
 
-    return (
-      <SortableList
-        items={items}
-        oneUp={(index) => this.oneUp(index)}
-        oneDown={(index) => this.oneDown(index)}
-        removeItem={(index) => this.removeItem(index)}
-        onSortEnd={this.onSortEnd}
-        useDragHandle
-      />
-    );
+    return <div>{content}</div>;
   }
 }
 

@@ -11,7 +11,6 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-// import messages from './messages';
 import SortableComponent from '../../components/Sortable';
 
 export default class HomePage extends React.PureComponent {
@@ -31,38 +30,11 @@ export default class HomePage extends React.PureComponent {
   };
 
   render() {
-    let content;
-    console.log(this.state.items);
-    if (this.state.items.length > 0) {
-      content = (
-        <div>
-          <SortableComponent
-            items={this.state.items}
-            removeItem={this.removeItem}
-          />
-          <SortableComponent
-            items={this.state.items2}
-            removeItem={this.removeItem}
-          />
-        </div>
-      );
-    } else {
-      content = <p> This list has no items </p>;
-    }
-
-    return <div>{content}</div>;
-  }
-
-  /*
-  render() {
     return (
       <div>
-        <SortableComponent
-          items={this.state.items}
-          removeItem={this.removeItem}
-        />
+        <SortableComponent items={this.state.items} />
+        <SortableComponent items={this.state.items2} />
       </div>
     );
   }
-  */
 }
