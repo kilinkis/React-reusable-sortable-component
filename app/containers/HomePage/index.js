@@ -22,25 +22,38 @@ export default class HomePage extends React.PureComponent {
       { text: 'Box 3 has a very very long text' },
       { text: 'Box 4' },
     ],
+    items2: [
+      { text: 'aBox 1' },
+      { text: 'aBox 2 has a medium text' },
+      { text: 'aBox 3 has a very very long text' },
+      { text: 'aBox 4' },
+    ],
   };
 
-  // removeItem = (key) => {
-  //   // var array = this.state.people;
-  //   // var index = array.indexOf(e.target.value)
-  //   // array.splice(index, 1);
-  //   // this.setState({people: array });
+  render() {
+    let content;
+    console.log(this.state.items);
+    if (this.state.items.length > 0) {
+      content = (
+        <div>
+          <SortableComponent
+            items={this.state.items}
+            removeItem={this.removeItem}
+          />
+          <SortableComponent
+            items={this.state.items2}
+            removeItem={this.removeItem}
+          />
+        </div>
+      );
+    } else {
+      content = <p> This list has no items </p>;
+    }
 
-  //   // 1. make copy of state
-  //   const items = { ...this.state.items };
+    return <div>{content}</div>;
+  }
 
-  //   console.log(key);
-  //   // 2. remove item from order
-  //   // delete items[key];
-  //   console.log(items);
-  //   // 3. set state
-  //   // this.setState({ items });
-  // };
-
+  /*
   render() {
     return (
       <div>
@@ -51,4 +64,5 @@ export default class HomePage extends React.PureComponent {
       </div>
     );
   }
+  */
 }

@@ -53,15 +53,20 @@ const SortableList = SortableContainer(
 class SortableComponent extends Component {
   static propTypes = {
     removeItem: PropTypes.func,
+    items: PropTypes.array,
   };
 
+  // state = {
+  //   items: [
+  //     { text: 'Box 1' },
+  //     { text: 'Box 2 has a medium text' },
+  //     { text: 'Box 3 has a very very long text' },
+  //     { text: 'Box 4' },
+  //   ],
+  // };
+
   state = {
-    items: [
-      { text: 'Box 1' },
-      { text: 'Box 2 has a medium text' },
-      { text: 'Box 3 has a very very long text' },
-      { text: 'Box 4' },
-    ],
+    items: this.props.items,
   };
 
   oneUp = (index) => {
