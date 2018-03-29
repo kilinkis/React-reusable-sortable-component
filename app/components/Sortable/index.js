@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
 import PropTypes from 'prop-types';
 import {
   SortableContainer,
@@ -17,7 +16,7 @@ const Wrapper = styled.div`
 `;
 
 const DragHandle = SortableHandle(() => (
-  <img src="https://i.imgur.com/ZGOYDIg.png" />
+  <img src="https://i.imgur.com/ZGOYDIg.png" alt="smiley" />
 )); // This can be any component you want
 
 const SortableItem = SortableElement(
@@ -28,11 +27,20 @@ const SortableItem = SortableElement(
         <div className="content">{value.text}</div>
       </span>
       <span className="buttons">
-        <i onClick={() => oneDown(index_value)} className="fa fa-arrow-down" />
-        <i onClick={() => oneUp(index_value)} className="fa fa-arrow-up" />
+        <i
+          onClick={() => oneDown(index_value)}
+          className="fa fa-arrow-down"
+          role="button"
+        />
+        <i
+          onClick={() => oneUp(index_value)}
+          className="fa fa-arrow-up"
+          role="button"
+        />
         <i
           onClick={() => removeItem(index_value)}
           className="remove fa fa-times"
+          role="button"
         />
       </span>
     </li>
@@ -59,12 +67,20 @@ const SortableList = SortableContainer(
 
 class SortableComponent extends Component {
   static propTypes = {
-    removeItem: PropTypes.func,
+    // removeItem: PropTypes.func,
     items: PropTypes.array,
   };
 
   state = {
     items: this.props.items,
+  };
+
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    const { items } = this.state;
+
+    this.setState({
+      items: arrayMove(items, oldIndex, newIndex),
+    });
   };
 
   oneUp = (index) => {
@@ -102,14 +118,6 @@ class SortableComponent extends Component {
     items.splice(index, 1);
     // 3. set state
     this.setState({ items });
-  };
-
-  onSortEnd = ({ oldIndex, newIndex }) => {
-    const { items } = this.state;
-
-    this.setState({
-      items: arrayMove(items, oldIndex, newIndex),
-    });
   };
 
   render() {

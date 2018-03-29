@@ -10,7 +10,6 @@
  */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import SortableComponent from '../../components/Sortable';
 
 export default class HomePage extends React.PureComponent {
