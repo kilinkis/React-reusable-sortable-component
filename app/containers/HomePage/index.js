@@ -27,13 +27,22 @@ export default class HomePage extends React.PureComponent {
       { text: 'aBox 3 has a very very long text' },
       { text: 'aBox 4' },
     ],
+    items3: [],
   };
 
   render() {
+    const divStyle = {
+      padding: '4em',
+    };
     return (
-      <div>
+      <div style={divStyle}>
+        <h3>React Reusable component (drag and reorder from Smiley)</h3>
+        <h3>List 1</h3>
         <SortableComponent items={this.state.items} />
+        <h3>List 2</h3>
         <SortableComponent items={this.state.items2} />
+        <h3>List 3 (empty)</h3>
+        <SortableComponent items={this.state.items3} />
       </div>
     );
   }

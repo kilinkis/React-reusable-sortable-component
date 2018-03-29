@@ -7,27 +7,34 @@ import {
   SortableHandle,
   arrayMove,
 } from 'react-sortable-hoc';
+import styled from 'styled-components';
 
 import 'font-awesome/css/font-awesome.min.css';
+import './style.css';
+
+const Wrapper = styled.div`
+  max-width: 300px;
+`;
 
 const DragHandle = SortableHandle(() => (
-  <span>
-    <i className="fa fa-bars" aria-hidden="true" />
-  </span>
+  <img src="https://i.imgur.com/ZGOYDIg.png" />
 )); // This can be any component you want
 
 const SortableItem = SortableElement(
   ({ value, index_value, oneUp, oneDown, removeItem }) => (
-    <li>
-      <DragHandle />
-      <i className="fa fa-smile-o" />
-      {value.text}
-      <i onClick={() => oneUp(index_value)} className="fa fa-arrow-circle-up" />
-      <i
-        onClick={() => oneDown(index_value)}
-        className="fa fa-arrow-circle-down"
-      />
-      <i onClick={() => removeItem(index_value)} className="fa fa-times" />
+    <li className="draggable">
+      <span className="first-area">
+        <DragHandle />
+        <div className="content">{value.text}</div>
+      </span>
+      <span className="buttons">
+        <i onClick={() => oneDown(index_value)} className="fa fa-arrow-down" />
+        <i onClick={() => oneUp(index_value)} className="fa fa-arrow-up" />
+        <i
+          onClick={() => removeItem(index_value)}
+          className="remove fa fa-times"
+        />
+      </span>
     </li>
   )
 );
@@ -104,13 +111,14 @@ class SortableComponent extends Component {
       items: arrayMove(items, oldIndex, newIndex),
     });
   };
+
   render() {
     let content;
     // console.log(this.state.items);
     if (this.state.items.length > 0) {
       const { items } = this.state;
       content = (
-        <div>
+        <Wrapper>
           <SortableList
             items={items}
             oneUp={(index) => this.oneUp(index)}
@@ -119,7 +127,7 @@ class SortableComponent extends Component {
             onSortEnd={this.onSortEnd}
             useDragHandle
           />
-        </div>
+        </Wrapper>
       );
     } else {
       content = <p> This list has no items </p>;
